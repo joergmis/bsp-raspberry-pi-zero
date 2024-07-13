@@ -1,0 +1,38 @@
+header:
+  version: 2
+machine: raspberrypi0-2w-64
+target: core-image-base
+distro: poky
+repos:
+  poky:
+    url: "https://git.yoctoproject.org/git/poky"
+    commit: a725df1839a23b11ae1bace531d242bfc1ab98e0
+    path: "layers/poky"
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+  oe:
+    url: "https://github.com/openembedded/meta-openembedded"
+    commit: 78a14731cf0cf38a19ff8bd0e9255b319afaf3a7
+    path: "layers/meta-openembedded"
+    layers:
+      meta-oe:
+  raspberrypi:
+    url: "https://github.com/agherzan/meta-raspberrypi"
+    commit: 1918a27419dcd5e79954c0dc0edddcde91057a7e
+    path: "layers/meta-raspberrypi"
+  swupdate:
+    url: "https://github.com/sbabic/meta-swupdate"
+    commit: a924d4bfd9dd54638ac8348d3f2845339f789770
+    path: "layers/meta-swupdate"
+  iot:
+    path: "layers/meta-iot"
+local_conf_header:
+  meta-custom: |
+    CONF_VERSION = "2"
+    ENABLE_UART = "1"
+    LICENSE_FLAGS_ACCEPTED:append = " synaptics-killswitch"
+    INIT_MANAGER = "systemd"
+    DISTRO_FEATURES:append = " wifi"
+    EXTRA_IMAGE_FEATURES:append = " allow-root-login allow-empty-password empty-root-password ssh-server-dropbear"
